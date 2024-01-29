@@ -15,6 +15,7 @@ namespace TestDrivenHotelRemake.Tests
         public ReservationServiceTests()
         {
             reservationService = new ReservationService();
+            reservationService.hotelRooms.AddRange(new[] { "Room1", "Room2", "Room3" });
         }
 
         [Fact]
