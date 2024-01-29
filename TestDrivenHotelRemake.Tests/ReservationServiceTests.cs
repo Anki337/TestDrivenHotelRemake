@@ -43,18 +43,26 @@ namespace TestDrivenHotelRemake.Tests
         [Fact]
         public void AddReservation_WhenRoomIsNotAvailable_ShouldNotAddReservation()
         {
-            
+            // Given
+            string room = "Yellow";
+
+            //When
+            reservationService.AddReservation(room);
+            // Then
+            reservationService.GetReservedRooms().Should().NotContain(room);
         }
-        //[Fact]
-        //public void AddReservation_WhenRoomIsNotAvailable_ShouldNotRemoveRoomFromHotelRooms()
-        //{
-            
-        //}
-        //[Fact]
-        //public void CancelReservation_WhenRoomIsReserved_ShouldCancelReservation()
-        //{
-           
-        //}
+        [Fact]
+        public void GetHotelRooms_ShouldReturnListOfHotelRooms()
+        {
+            // Given
+            var expectedHotelRooms = new[] { "Room1", "Room2", "Room3" };
+
+            // When
+            var actualHotelRooms = reservationService.GetHotelRooms();
+
+            // Then
+            actualHotelRooms.Should().BeEquivalentTo(expectedHotelRooms);
+        }
 
 
 

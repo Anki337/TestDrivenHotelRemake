@@ -11,4 +11,8 @@
     <PackageReference Include="xunit" Version="2.6.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TestDrivenHotelRemake.BLL\TestDrivenHotelRemake.BLL.csproj" />
+  </ItemGroup>
+
 </Project>

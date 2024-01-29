@@ -4,7 +4,30 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div>
+<h1>Rooms</h1>
+    @foreach (var room in Model.AllRooms)
+    {
+        <div>
+            <h1>@room</h1>
+        </div>
+        <form method="post" asp-page-handler="BookRoom" id="BookRoom">
+            <input type="hidden" name="room" value="@room" />
+            <input type="submit" value="Book Room" />
+        </form>
+    }
+</div>
+
+<div>
+    <h1>Reserved Rooms</h1>
+    @foreach (var reservedRoom in Model.ReservedRooms)
+    {
+        <div>
+            <h1>@reservedRoom</h1>
+        </div>
+        <form method="post" asp-page-handler="CancelRoom" id="CancelRoom">
+            <input type="hidden" name="room" value="@reservedRoom" />
+            <input type="submit" value="Remove Room" />
+        </form>
+    }
 </div>

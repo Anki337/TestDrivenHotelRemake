@@ -8,8 +8,9 @@ namespace TestDrivenHotelRemake.BLL
 {
     public class ReservationService
     {
-        private List<string> reservedRooms = new List<string>();
-        private List<string> hotelRooms = new List<string> { "Room1", "Room2", "Room3" };
+        private List<string> reservedRooms { get; set; } = new List<string>();
+        private List<string> hotelRooms { get; set; } = new List<string> { "Room1", "Room2", "Room3" };
+        
 
         public void AddReservation(string room)
         {
@@ -28,7 +29,6 @@ namespace TestDrivenHotelRemake.BLL
                 hotelRooms.Add(room);
             }
         }
-
         public List<string> GetReservedRooms()
         {
             return reservedRooms;
