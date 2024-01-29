@@ -15,7 +15,7 @@ namespace TestDrivenHotelRemake.Tests
         public ReservationServiceTests()
         {
             reservationService = new ReservationService();
-            reservationService.hotelRooms.AddRange(new[] { "Room1", "Room2", "Room3" });
+            
         }
 
         [Fact]
@@ -28,7 +28,7 @@ namespace TestDrivenHotelRemake.Tests
             // Then
             reservationService.GetReservedRooms().Should().Contain(room);
         }
-        
+
         [Fact]
         public void AddReservation_WhenRoomIsAvailable_ShouldRemoveRoomFromHotelRooms()
         {
@@ -39,8 +39,10 @@ namespace TestDrivenHotelRemake.Tests
             reservationService.AddReservation(room);
 
             // Then
-            reservationService.GetHotelRooms().Should().NotContain(room);
+            var actualHotelRooms = reservationService.GetHotelRooms();
+            actualHotelRooms.Should().NotContain(room);
         }
+
         [Fact]
         public void AddReservation_WhenRoomIsNotAvailable_ShouldNotAddReservation()
         {

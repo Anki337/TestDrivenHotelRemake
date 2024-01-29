@@ -13,7 +13,11 @@ namespace TestDrivenHotelRemake.BLL
       
         public ReservationService()
         {
-            hotelRooms.AddRange(new[] { "Room1", "Room2", "Room3" });
+            if(hotelRooms.Count == 0)
+            {
+                hotelRooms.AddRange(new[] { "Room1", "Room2", "Room3" });
+            }
+            
         }
 
         public void AddReservation(string room)
