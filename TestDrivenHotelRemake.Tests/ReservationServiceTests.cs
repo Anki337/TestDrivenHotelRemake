@@ -116,13 +116,13 @@ namespace TestDrivenHotelRemake.Tests
             // Then
             actualReservedRooms.Should().BeEquivalentTo(expectedReservedRooms);
         }
-        
 
-        
-        
-           
 
-        
+
+
+
+
+
 
     }
 }

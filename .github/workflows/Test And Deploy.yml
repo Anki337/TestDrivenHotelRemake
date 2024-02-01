@@ -26,6 +26,4 @@ jobs:
           # Test Functions in the project - Run XUnit-Tests
          - name: Test
            run: dotnet test --no-restore --verbosity normal
- 
-        
   
