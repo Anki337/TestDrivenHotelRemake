@@ -66,8 +66,63 @@ namespace TestDrivenHotelRemake.Tests
             // Then
             actualHotelRooms.Should().BeEquivalentTo(expectedHotelRooms);
         }
+        [Fact]
+        public void CancelReservation_WhenRoomIsReserved_ShouldCancelReservation()
+        {
+            // Given
+            string room = "Room1";
+            reservationService.AddReservation(room);
 
+            // When
+            reservationService.CancelReservation(room);
 
+            // Then
+            reservationService.GetReservedRooms().Should().NotContain(room);
+        }
+        [Fact]
+        public void CancelReservation_WhenRoomIsReserved_ShouldAddRoomToHotelRooms()
+        {
+            // Given
+            string room = "Room1";
+            reservationService.AddReservation(room);
+
+            // When
+            reservationService.CancelReservation(room);
+
+            // Then
+            reservationService.GetHotelRooms().Should().Contain(room);
+        }
+        [Fact]
+        public void CancelReservation_WhenRoomIsNotReserved_ShouldNotCancelReservation()
+        {
+            // Given
+            string room = "Room1";
+
+            // When
+            reservationService.CancelReservation(room);
+
+            // Then
+            reservationService.GetReservedRooms().Should().NotContain(room);
+        }
+        [Fact]
+        public void GetReservedRooms_ShouldReturnEmptyListInitially()
+        {
+            // Given
+            var expectedReservedRooms = new List<string>();
+
+            // When
+            var actualReservedRooms = reservationService.GetReservedRooms();
+
+            // Then
+            actualReservedRooms.Should().BeEquivalentTo(expectedReservedRooms);
+        }
+        
+
+        
+        
+           
+
+        
 
     }
 }
