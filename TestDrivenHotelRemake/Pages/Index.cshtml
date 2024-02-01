@@ -4,30 +4,44 @@
     ViewData["Title"] = "Home page";
 }
 
-<div>
-<h1>Rooms</h1>
-    @foreach (var room in Model.AllRooms)
-    {
-        <div>
-            <h1>@room</h1>
+
+<div class="container text-center">
+
+    <div class="row">
+        <div class="col">
+            <h1>Available Rooms</h1>
+            @foreach (var room in Model.AllRooms)
+            {
+                <div>
+                    <h1>@room</h1>
+                </div>
+                <form method="post" asp-page-handler="BookRoom" id="BookRoom">
+                    <input type="hidden" name="room" value="@room" />
+                    <input type="submit" value="Book Room!" />
+                </form>
+            }
         </div>
-        <form method="post" asp-page-handler="BookRoom" id="BookRoom">
-            <input type="hidden" name="room" value="@room" />
-            <input type="submit" value="Book Room" />
-        </form>
-    }
+
+        <div class="col">
+            <h1>Reserved Rooms</h1>
+            @foreach (var reservedRoom in Model.ReservedRooms)
+            {
+                <div>
+                    <h1>@reservedRoom</h1>
+                </div>
+                <form method="post" asp-page-handler="CancelRoom" id="CancelRoom">
+                    <input type="hidden" name="room" value="@reservedRoom" />
+                    <input type="submit" value="Cancel Reservation?" />
+                </form>
+            }
+
+        </div>
+    </div>
+
 </div>
 
-<div>
-    <h1>Reserved Rooms</h1>
-    @foreach (var reservedRoom in Model.ReservedRooms)
-    {
-        <div>
-            <h1>@reservedRoom</h1>
-        </div>
-        <form method="post" asp-page-handler="CancelRoom" id="CancelRoom">
-            <input type="hidden" name="room" value="@reservedRoom" />
-            <input type="submit" value="Remove Room" />
-        </form>
-    }
-</div>
+
+
+
+
+
