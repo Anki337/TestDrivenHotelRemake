@@ -26,4 +26,14 @@ jobs:
           # Test Functions in the project - Run XUnit-Tests
          - name: Test
            run: dotnet test --no-restore --verbosity normal
+          # Creating the publish file
+         - name: Create publish files
+           run: dotnet publish --configuration Release --output ./publish
+           # Deploy to Azure Web App
+         - name: Deploy to Azure Web App
+           uses: azure/webapps-deploy@v3.0.0
+           with:
+            app-name: 'TestDrivenHotel'
+            publish-profile: ${{ secrets.TESTDRIVENHOTEL_WEBB_APP_KEY }}
+            package: './publish'
   
