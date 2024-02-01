@@ -1,6 +1,6 @@
 # Test And Deploy
 # ---------------
-name: Publish
+name: Test Functions
 on:
   push:
     branches:
