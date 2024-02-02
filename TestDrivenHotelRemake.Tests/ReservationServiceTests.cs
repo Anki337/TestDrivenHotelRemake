@@ -22,7 +22,7 @@ namespace TestDrivenHotelRemake.Tests
         public void AddReservation_WhenRoomIsAvailable_ShouldAddReservation()
         {
             // Given
-            string room = "Room1";
+            string room = "Room101";
             // When
             reservationService.AddReservation(room);
             // Then
@@ -33,7 +33,7 @@ namespace TestDrivenHotelRemake.Tests
         public void AddReservation_WhenRoomIsAvailable_ShouldRemoveRoomFromHotelRooms()
         {
             // Given
-            string room = "Room1";
+            string room = "Room101";
 
             // When
             reservationService.AddReservation(room);
@@ -58,7 +58,7 @@ namespace TestDrivenHotelRemake.Tests
         public void GetHotelRooms_ShouldReturnListOfHotelRooms()
         {
             // Given
-            var expectedHotelRooms = new[] { "Room1", "Room2", "Room3" };
+            var expectedHotelRooms = new[] { "Room101", "Room102", "Room103" };
 
             // When
             var actualHotelRooms = reservationService.GetHotelRooms();
@@ -70,7 +70,7 @@ namespace TestDrivenHotelRemake.Tests
         public void CancelReservation_WhenRoomIsReserved_ShouldCancelReservation()
         {
             // Given
-            string room = "Room1";
+            string room = "Room101";
             reservationService.AddReservation(room);
 
             // When
@@ -83,7 +83,7 @@ namespace TestDrivenHotelRemake.Tests
         public void CancelReservation_WhenRoomIsReserved_ShouldAddRoomToHotelRooms()
         {
             // Given
-            string room = "Room1";
+            string room = "Room101";
             reservationService.AddReservation(room);
 
             // When
@@ -96,7 +96,7 @@ namespace TestDrivenHotelRemake.Tests
         public void CancelReservation_WhenRoomIsNotReserved_ShouldNotCancelReservation()
         {
             // Given
-            string room = "Room1";
+            string room = "Room101";
 
             // When
             reservationService.CancelReservation(room);
