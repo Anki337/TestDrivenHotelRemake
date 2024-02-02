@@ -2,9 +2,7 @@
 # ---------------
 name: Test Functions
 on:
-  push:
-    branches:
-      - master
+  workflow_dispatch:
 jobs:
    test-functions:
       runs-on: ubuntu-latest
