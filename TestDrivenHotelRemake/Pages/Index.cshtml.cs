@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Newtonsoft.Json;
 using TestDrivenHotelRemake.BLL;
 
 namespace TestDrivenHotelRemake.Pages
@@ -7,22 +8,24 @@ namespace TestDrivenHotelRemake.Pages
     public class IndexModel : PageModel
     {
         
-        public  List<string> AllRooms { get; set; }
-        public  List<string> ReservedRooms { get; set; }
+        public  List<HotelRoom> AllRooms { get; set; }
+        public  List<HotelRoom> ReservedRooms { get; set; }
         public void OnGet()
         {
             AllRooms = ReservationService.GetHotelRooms();
             ReservedRooms = ReservationService.GetReservedRooms();
         }
-        public IActionResult OnPostBookRoom(string room)
+        public IActionResult OnPostBookRoom(int RoomNumber, int NumberOfBeds, int RoomPrice)
         {
+            var room = new HotelRoom(RoomNumber, NumberOfBeds, RoomPrice);
             ReservationService.AddReservation(room);
-            return Page();
+            return RedirectToPage();
         }
-        public IActionResult OnPostCancelRoom(string room)
+        public IActionResult OnPostCancelRoom(int RoomNumber, int NumberOfBeds, int RoomPrice)
         {
+            var room = new HotelRoom(RoomNumber, NumberOfBeds, RoomPrice);
             ReservationService.CancelReservation(room);
-            return Page();
+            return RedirectToPage();
         }
     }
 }

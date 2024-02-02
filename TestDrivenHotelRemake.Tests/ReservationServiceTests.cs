@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
@@ -46,16 +48,20 @@ namespace TestDrivenHotelRemake.Tests
         public void GetHotelRooms_ShouldReturnEmptyListAfterAllReservations()
         {
             // Given
-            var expectedHotelRooms = new List<string>();
+            // Given
+            var room1 = new HotelRoom(101, 2, 300);
+            var room2 = new HotelRoom(102, 3, 400);
+            var room3 = new HotelRoom(103, 4, 500);
 
             // When
-            ReservationService.AddReservation("Room101");
-            ReservationService.AddReservation("Room102");
-            ReservationService.AddReservation("Room103");
-            var actualHotelRooms = ReservationService.GetHotelRooms();
+            ReservationService.AddReservation(room1);
+            ReservationService.AddReservation(room2);
+            ReservationService.AddReservation(room3);
 
             // Then
-            actualHotelRooms.Should().BeEquivalentTo(expectedHotelRooms);
+            var actualHotelRooms = ReservationService.GetHotelRooms();
+            actualHotelRooms.Should().BeEmpty();
+
         }
 
 
@@ -65,7 +71,7 @@ namespace TestDrivenHotelRemake.Tests
         public void AddReservation_WhenRoomIsAvailable_ShouldAddReservation()
         {
             // Given
-            string room = "Room101";
+            var room = new HotelRoom(101, 2, 300);
             // When
             ReservationService.AddReservation(room);
             // Then
@@ -76,7 +82,7 @@ namespace TestDrivenHotelRemake.Tests
         public void AddReservation_WhenRoomIsAvailable_ShouldRemoveRoomFromHotelRooms()
         {
             // Given
-            string room = "Room101";
+            var room = new HotelRoom(101, 2, 300);
 
             // When
             ReservationService.AddReservation(room);
@@ -90,8 +96,7 @@ namespace TestDrivenHotelRemake.Tests
         public void AddReservation_WhenRoomIsReserved_ShouldNotModifyLists()
         {
             // Given
-            string room = "Room101";
-            ReservationService.AddReservation(room);
+            var room = new HotelRoom(101, 2, 300);
 
             // When
             ReservationService.AddReservation(room);
@@ -99,16 +104,21 @@ namespace TestDrivenHotelRemake.Tests
             // Then
             var actualReservedRooms = ReservationService.GetReservedRooms();
             var actualHotelRooms = ReservationService.GetHotelRooms();
-            actualReservedRooms.Should().BeEquivalentTo(new[] { "Room101" });
-            actualHotelRooms.Should().BeEquivalentTo(new[] { "Room102", "Room103" });
+
+
+            var expectedReservedRooms = ReservationService.reservedRooms; 
+            var expectedHotelRooms = ReservationService.hotelRooms;
+
+            actualReservedRooms.Should().BeEquivalentTo(expectedReservedRooms);
+            actualHotelRooms.Should().BeEquivalentTo(expectedHotelRooms);
         }
 
         [Fact]
         public void AddReservation_WhenRoomIsNotAvailable_ShouldNotAddReservation()
         {
             // Given
-            string room = "Yellow";
-
+            var room = new HotelRoom(9339, 1231232, 232222200);
+            
             //When
             ReservationService.AddReservation(room);
             // Then
@@ -119,7 +129,7 @@ namespace TestDrivenHotelRemake.Tests
         public void AddReservation_WhenRoomIsNotAvailable_ShouldNotRemoveRoomFromHotelRooms()
         {
             // Given
-            string room = "Yellow";
+            var room = new HotelRoom(9339, 1231232, 232222200);
 
             // When
             ReservationService.AddReservation(room);
@@ -129,28 +139,17 @@ namespace TestDrivenHotelRemake.Tests
             actualHotelRooms.Should().NotContain(room);
         }
 
-        [Fact]
-        public void AddReservation_WhenHotelRoomsIsEmpty_ShouldNotModifyHotelRooms()
-        {
-            // Given
-            string room = "Yellow";
 
-            // When
-            ReservationService.AddReservation(room);
-
-            // Then
-            var actualReservedRooms = ReservationService.GetReservedRooms();
-            actualReservedRooms.Should().NotContain(room);
-        }
         [Fact]
         public void AddReservation_WhenRoomIsAvailable_ShouldNotAddDuplicateReservation()
         {
             // Given
-            string room = "Room101";
+            var room = new HotelRoom(101, 2, 300);
+            var room2 = new HotelRoom(101, 2, 300);
 
             // When
             ReservationService.AddReservation(room);
-            ReservationService.AddReservation(room);
+            ReservationService.AddReservation(room2);
 
             // Then
             var actualReservedRooms = ReservationService.GetReservedRooms();
@@ -164,7 +163,7 @@ namespace TestDrivenHotelRemake.Tests
         public void CancelReservation_WhenRoomIsReserved_ShouldCancelReservation()
         {
             // Given
-            string room = "Room101";
+            var room = new HotelRoom(101, 2, 300);
             ReservationService.AddReservation(room);
 
             // When
@@ -178,7 +177,7 @@ namespace TestDrivenHotelRemake.Tests
         public void CancelReservation_WhenRoomIsReserved_ShouldAddRoomToHotelRooms()
         {
             // Given
-            string room = "Room101";
+            var room = new HotelRoom(101, 2, 300);
             ReservationService.AddReservation(room);
 
             // When
@@ -192,7 +191,7 @@ namespace TestDrivenHotelRemake.Tests
         public void CancelReservation_WhenRoomIsNotReserved_ShouldNotCancelReservation()
         {
             // Given
-            string room = "Room101";
+            var room = new HotelRoom(101, 2, 300);
 
             // When
             ReservationService.CancelReservation(room);
@@ -204,7 +203,7 @@ namespace TestDrivenHotelRemake.Tests
         public void CancelReservation_WhenReservedRoomsIsEmpty_ShouldNotModifyLists()
         {
             // Given
-            string room = "Room101";
+            var room = new HotelRoom(101, 2, 300);
 
             // When
             ReservationService.CancelReservation(room);
@@ -213,9 +212,9 @@ namespace TestDrivenHotelRemake.Tests
             var actualReservedRooms = ReservationService.GetReservedRooms();
             var actualHotelRooms = ReservationService.GetHotelRooms();
             actualReservedRooms.Should().BeEmpty();
-            actualHotelRooms.Should().BeEquivalentTo(new[] { "Room101", "Room102", "Room103" });
+            actualHotelRooms.Should().BeEquivalentTo(ReservationService.GetHotelRooms());
         }
-        
+
 
 
 

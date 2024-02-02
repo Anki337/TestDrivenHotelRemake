@@ -8,11 +8,16 @@ namespace TestDrivenHotelRemake.BLL
 {
     public static class ReservationService
     {
-        public static List<string> reservedRooms { get; set; } = new List<string>();
-        public static List<string> hotelRooms { get; set; } = new List<string>() { "Room101", "Room102", "Room103" };
+        public static List<HotelRoom> reservedRooms { get; set; } = new List<HotelRoom>();
+        public static List<HotelRoom> hotelRooms { get; set; } = new List<HotelRoom>()
+        {
+            new HotelRoom(101, 2, 300),
+            new HotelRoom(102, 3, 400),
+            new HotelRoom(103, 4, 500)
+        };
         
 
-        public static void AddReservation(string room)
+        public static void AddReservation(HotelRoom room)
         {
             if (hotelRooms.Contains(room) && !reservedRooms.Contains(room))
             {
@@ -22,7 +27,7 @@ namespace TestDrivenHotelRemake.BLL
           
         }
 
-        public static void CancelReservation(string room)
+        public static void CancelReservation(HotelRoom room)
         {
             if (reservedRooms.Contains(room) && !hotelRooms.Contains(room))
             {
@@ -32,12 +37,12 @@ namespace TestDrivenHotelRemake.BLL
 
         }
 
-        public static List<string> GetReservedRooms()
+        public static List<HotelRoom> GetReservedRooms()
         {
             return reservedRooms;
         }
 
-        public static List<string> GetHotelRooms()
+        public static List<HotelRoom> GetHotelRooms()
         {
             return hotelRooms;
         }

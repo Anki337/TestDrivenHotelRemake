@@ -18,10 +18,14 @@
             @foreach (var room in Model.AllRooms)
             {
                 <div>
-                    <h1>@room</h1>
+                    <h4>Room Number: @room.RoomNumber</h4>
+                    <p>Number of Beds: @room.NumberOfBeds</p>
+                    <p>Room Price: @room.RoomPrice</p>
                 </div>
                 <form method="post" asp-page-handler="BookRoom" id="BookRoom">
-                    <input type="hidden" name="room" value="@room" />
+                    <input type="hidden" name="RoomNumber" value="@room.RoomNumber" />
+                    <input type="hidden" name="NumberOfBeds" value="@room.NumberOfBeds" />
+                    <input type="hidden" name="RoomPrice" value="@room.RoomPrice" />
                     <input type="submit" value="Book Room!" />
                 </form>
             }
@@ -32,10 +36,14 @@
             @foreach (var reservedRoom in Model.ReservedRooms)
             {
                 <div>
-                    <h1>@reservedRoom</h1>
+                    <h4>Room Number: @reservedRoom.RoomNumber</h4>
+                    <p>Number of Beds: @reservedRoom.NumberOfBeds</p>
+                    <p>Room Price: @reservedRoom.RoomPrice</p>
                 </div>
                 <form method="post" asp-page-handler="CancelRoom" id="CancelRoom">
-                    <input type="hidden" name="room" value="@reservedRoom" />
+                    <input type="hidden" name="RoomNumber" value="@reservedRoom.RoomNumber" />
+                    <input type="hidden" name="NumberOfBeds" value="@reservedRoom.NumberOfBeds" />
+                    <input type="hidden" name="RoomPrice" value="@reservedRoom.RoomPrice" />
                     <input type="submit" value="Cancel Reservation?" />
                 </form>
             }
