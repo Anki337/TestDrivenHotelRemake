@@ -11,25 +11,38 @@ namespace TestDrivenHotelRemake.Tests
 {
     public class ReservationServiceTests
     {
-        
+
 
         // Get Hotel Rooms, Get Reserved Rooms tests.
+        //[Fact]  // This test will fail if all tests are run at once as it is tested at the end and thus not valid. Re-run alone to see the result.
+        //public void GetHotelRooms_ShouldReturnListOfHotelRooms()
+        //{
+        //    // Given
+        //    var expectedHotelRooms = new List<string> { "Room101", "Room102", "Room103" };
+
+        //    // When
+        //    var actualHotelRooms = ReservationService.GetHotelRooms();
+
+        //    // Then
+        //    actualHotelRooms.Should().BeEquivalentTo(expectedHotelRooms);
+        //}
+
+        //[Fact] // This test will fail if all tests are run at once as it is tested at the end and thus not valid. Re-run alone to see the result.
+        //public void GetReservedRooms_ShouldReturnEmptyListInitially()
+        //{
+        //    // Given
+        //    var expectedReservedRooms = new List<string>();
+
+        //    // When
+
+        //    var actualReservedRooms = ReservationService.GetReservedRooms();
+
+        //    // Then
+        //    actualReservedRooms.Should().BeEquivalentTo(expectedReservedRooms);
+        //}
 
 
-        [Fact]  // This test will fail if all tests are run at once as it is tested at the end and thus not valid. Re-run alone to see the result.
-        public void GetHotelRooms_ShouldReturnListOfHotelRooms()
-        {
-            // Given
-            var expectedHotelRooms = new List<string> { "Room101", "Room102", "Room103" };
-
-            // When
-            var actualHotelRooms = ReservationService.GetHotelRooms();
-
-            // Then
-            actualHotelRooms.Should().BeEquivalentTo(expectedHotelRooms);
-        }
-
-        [Fact] // This test will fail if all tests are run at once as it is tested at the end and thus not valid. Re-run alone to see the result.
+        [Fact] 
         public void GetHotelRooms_ShouldReturnEmptyListAfterAllReservations()
         {
             // Given
@@ -43,20 +56,6 @@ namespace TestDrivenHotelRemake.Tests
 
             // Then
             actualHotelRooms.Should().BeEquivalentTo(expectedHotelRooms);
-        }
-
-        [Fact]
-        public void GetReservedRooms_ShouldReturnEmptyListInitially()
-        {
-            // Given
-            var expectedReservedRooms = new List<string>();
-
-            // When
-            
-            var actualReservedRooms = ReservationService.GetReservedRooms();
-
-            // Then
-            actualReservedRooms.Should().BeEquivalentTo(expectedReservedRooms);
         }
 
 
@@ -129,6 +128,7 @@ namespace TestDrivenHotelRemake.Tests
             var actualHotelRooms = ReservationService.GetHotelRooms();
             actualHotelRooms.Should().NotContain(room);
         }
+
         [Fact]
         public void AddReservation_WhenHotelRoomsIsEmpty_ShouldNotModifyHotelRooms()
         {

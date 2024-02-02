@@ -10,7 +10,7 @@ namespace TestDrivenHotelRemake.BLL
     {
         public static List<string> reservedRooms { get; set; } = new List<string>();
         public static List<string> hotelRooms { get; set; } = new List<string>() { "Room101", "Room102", "Room103" };
- 
+        
 
         public static void AddReservation(string room)
         {
