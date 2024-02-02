@@ -1,5 +1,6 @@
 ﻿@page
 @model IndexModel
+@using System.IO
 @{
     ViewData["Title"] = "Home page";
 }
@@ -11,50 +12,45 @@
     <p>Here you can book a room, or cancel a reservation</p>
 </div>
 <div class="container text-center">
-
     <div class="row">
         <div class="col">
             <h1>Available Rooms</h1>
             @foreach (var room in Model.AllRooms)
             {
-                <div>
-                    <h4>Room Number: @room.RoomNumber</h4>
-                    <p>Number of Beds: @room.NumberOfBeds</p>
-                    <p>Room Price: @room.RoomPrice</p>
+                <div class="card mb-3">
+                    
+                    <div class="card-body">
+                        <h4 class="card-title">Room Number: @room.RoomNumber</h4>
+                        <p class="card-text">Number of Beds: @room.NumberOfBeds</p>
+                        <p class="card-text">Room Price: @room.RoomPrice</p>
+                    </div>
+                    <form method="post" asp-page-handler="BookRoom" class="card-footer">
+                        <input type="hidden" name="RoomNumber" value="@room.RoomNumber" />
+                        <input type="hidden" name="NumberOfBeds" value="@room.NumberOfBeds" />
+                        <input type="hidden" name="RoomPrice" value="@room.RoomPrice" />
+                        <input type="submit" class="btn btn-primary" value="Book Room!" />
+                    </form>
                 </div>
-                <form method="post" asp-page-handler="BookRoom" id="BookRoom">
-                    <input type="hidden" name="RoomNumber" value="@room.RoomNumber" />
-                    <input type="hidden" name="NumberOfBeds" value="@room.NumberOfBeds" />
-                    <input type="hidden" name="RoomPrice" value="@room.RoomPrice" />
-                    <input type="submit" value="Book Room!" />
-                </form>
             }
         </div>
-
         <div class="col">
             <h1>Reserved Rooms</h1>
             @foreach (var reservedRoom in Model.ReservedRooms)
             {
-                <div>
-                    <h4>Room Number: @reservedRoom.RoomNumber</h4>
-                    <p>Number of Beds: @reservedRoom.NumberOfBeds</p>
-                    <p>Room Price: @reservedRoom.RoomPrice</p>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h4 class="card-title">Room Number: @reservedRoom.RoomNumber</h4>
+                        <p class="card-text">Number of Beds: @reservedRoom.NumberOfBeds</p>
+                        <p class="card-text">Room Price: @reservedRoom.RoomPrice</p>
+                    </div>
+                    <form method="post" asp-page-handler="CancelRoom" class="card-footer">
+                        <input type="hidden" name="RoomNumber" value="@reservedRoom.RoomNumber" />
+                        <input type="hidden" name="NumberOfBeds" value="@reservedRoom.NumberOfBeds" />
+                        <input type="hidden" name="RoomPrice" value="@reservedRoom.RoomPrice" />
+                        <input type="submit" class="btn btn-danger" value="Cancel Reservation?" />
+                    </form>
                 </div>
-                <form method="post" asp-page-handler="CancelRoom" id="CancelRoom">
-                    <input type="hidden" name="RoomNumber" value="@reservedRoom.RoomNumber" />
-                    <input type="hidden" name="NumberOfBeds" value="@reservedRoom.NumberOfBeds" />
-                    <input type="hidden" name="RoomPrice" value="@reservedRoom.RoomPrice" />
-                    <input type="submit" value="Cancel Reservation?" />
-                </form>
             }
-
         </div>
     </div>
-
 </div>
-
-
-
-
-
-

@@ -11,17 +11,21 @@ namespace TestDrivenHotelRemake.BLL
         public readonly int RoomNumber;
         public readonly int NumberOfBeds;
         public readonly int RoomPrice;
+        
+
 
         public HotelRoom(int roomNumber, int numberOfBeds, int roomPrice)
         {
             RoomNumber = roomNumber;
             NumberOfBeds = numberOfBeds;
             RoomPrice = roomPrice;
+            
         }
         public HotelRoom()
         {
 
         }
+        // Override Equals and GetHashCode to compare objects by value instead of reference.
         public override bool Equals(object obj)
         {
             if (obj == null || GetType() != obj.GetType())
@@ -34,7 +38,6 @@ namespace TestDrivenHotelRemake.BLL
                    NumberOfBeds == otherRoom.NumberOfBeds &&
                    RoomPrice == otherRoom.RoomPrice;
         }
-
         public override int GetHashCode()
         {
             return HashCode.Combine(RoomNumber, NumberOfBeds, RoomPrice);

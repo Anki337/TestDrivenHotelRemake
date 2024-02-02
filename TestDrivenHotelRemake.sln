@@ -3,14 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDrivenHotelRemake", "TestDrivenHotelRemake\TestDrivenHotelRemake.csproj", "{7A966975-3E8E-4F13-8622-7379982D1F8E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestDrivenHotelRemake", "TestDrivenHotelRemake\TestDrivenHotelRemake.csproj", "{7A966975-3E8E-4F13-8622-7379982D1F8E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A994AB96-8155-498F-9A4A-B4C14709DE2A} = {A994AB96-8155-498F-9A4A-B4C14709DE2A}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDrivenHotelRemake.BLL", "TestDrivenHotelRemake.BLL\TestDrivenHotelRemake.BLL.csproj", "{A994AB96-8155-498F-9A4A-B4C14709DE2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestDrivenHotelRemake.BLL", "TestDrivenHotelRemake.BLL\TestDrivenHotelRemake.BLL.csproj", "{A994AB96-8155-498F-9A4A-B4C14709DE2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDrivenHotelRemake.Tests", "TestDrivenHotelRemake.Tests\TestDrivenHotelRemake.Tests.csproj", "{FD0068F1-5CA5-4A67-BC62-34FE4CF69BDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestDrivenHotelRemake.Tests", "TestDrivenHotelRemake.Tests\TestDrivenHotelRemake.Tests.csproj", "{FD0068F1-5CA5-4A67-BC62-34FE4CF69BDB}"
 	ProjectSection(ProjectDependencies) = postProject
 		{7A966975-3E8E-4F13-8622-7379982D1F8E} = {7A966975-3E8E-4F13-8622-7379982D1F8E}
 	EndProjectSection
