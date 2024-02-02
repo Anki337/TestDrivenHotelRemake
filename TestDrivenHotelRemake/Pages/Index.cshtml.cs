@@ -13,8 +13,8 @@ namespace TestDrivenHotelRemake.Pages
             AllRooms = _reservationService.GetHotelRooms();
             ReservedRooms = _reservationService.GetReservedRooms();
         }
-        public List<string> AllRooms { get; set; }
-        public List<string> ReservedRooms { get; set; }
+        public  List<string> AllRooms { get; set; }
+        public  List<string> ReservedRooms { get; set; }
         public void OnGet()
         {
             
