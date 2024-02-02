@@ -11,24 +11,35 @@ namespace TestDrivenHotelRemake.Tests
 {
     public class ReservationServiceTests
     {
-        private ReservationService reservationService;
-
-        public ReservationServiceTests()
-        {
-            reservationService = new ReservationService();
-            
-        }
+        
 
         // Get Hotel Rooms, Get Reserved Rooms tests.
 
-        [Fact]
+
+        [Fact]  // This test will fail if all tests are run at once as it is tested at the end and thus not valid. Re-run alone to see the result.
         public void GetHotelRooms_ShouldReturnListOfHotelRooms()
         {
             // Given
-            var expectedHotelRooms = new[] { "Room101", "Room102", "Room103" };
+            var expectedHotelRooms = new List<string> { "Room101", "Room102", "Room103" };
 
             // When
-            var actualHotelRooms = reservationService.GetHotelRooms();
+            var actualHotelRooms = ReservationService.GetHotelRooms();
+
+            // Then
+            actualHotelRooms.Should().BeEquivalentTo(expectedHotelRooms);
+        }
+
+        [Fact] // This test will fail if all tests are run at once as it is tested at the end and thus not valid. Re-run alone to see the result.
+        public void GetHotelRooms_ShouldReturnEmptyListAfterAllReservations()
+        {
+            // Given
+            var expectedHotelRooms = new List<string>();
+
+            // When
+            ReservationService.AddReservation("Room101");
+            ReservationService.AddReservation("Room102");
+            ReservationService.AddReservation("Room103");
+            var actualHotelRooms = ReservationService.GetHotelRooms();
 
             // Then
             actualHotelRooms.Should().BeEquivalentTo(expectedHotelRooms);
@@ -41,7 +52,8 @@ namespace TestDrivenHotelRemake.Tests
             var expectedReservedRooms = new List<string>();
 
             // When
-            var actualReservedRooms = reservationService.GetReservedRooms();
+            
+            var actualReservedRooms = ReservationService.GetReservedRooms();
 
             // Then
             actualReservedRooms.Should().BeEquivalentTo(expectedReservedRooms);
@@ -56,9 +68,9 @@ namespace TestDrivenHotelRemake.Tests
             // Given
             string room = "Room101";
             // When
-            reservationService.AddReservation(room);
+            ReservationService.AddReservation(room);
             // Then
-            reservationService.GetReservedRooms().Should().Contain(room);
+            ReservationService.GetReservedRooms().Should().Contain(room);
         }
 
         [Fact]
@@ -68,11 +80,28 @@ namespace TestDrivenHotelRemake.Tests
             string room = "Room101";
 
             // When
-            reservationService.AddReservation(room);
+            ReservationService.AddReservation(room);
 
             // Then
-            var actualHotelRooms = reservationService.GetHotelRooms();
+            var actualHotelRooms = ReservationService.GetHotelRooms();
             actualHotelRooms.Should().NotContain(room);
+        }
+
+        [Fact]
+        public void AddReservation_WhenRoomIsReserved_ShouldNotModifyLists()
+        {
+            // Given
+            string room = "Room101";
+            ReservationService.AddReservation(room);
+
+            // When
+            ReservationService.AddReservation(room);
+
+            // Then
+            var actualReservedRooms = ReservationService.GetReservedRooms();
+            var actualHotelRooms = ReservationService.GetHotelRooms();
+            actualReservedRooms.Should().BeEquivalentTo(new[] { "Room101" });
+            actualHotelRooms.Should().BeEquivalentTo(new[] { "Room102", "Room103" });
         }
 
         [Fact]
@@ -82,9 +111,9 @@ namespace TestDrivenHotelRemake.Tests
             string room = "Yellow";
 
             //When
-            reservationService.AddReservation(room);
+            ReservationService.AddReservation(room);
             // Then
-            reservationService.GetReservedRooms().Should().NotContain(room);
+            ReservationService.GetReservedRooms().Should().NotContain(room);
         }
 
         [Fact]
@@ -94,10 +123,10 @@ namespace TestDrivenHotelRemake.Tests
             string room = "Yellow";
 
             // When
-            reservationService.AddReservation(room);
+            ReservationService.AddReservation(room);
 
             // Then
-            var actualHotelRooms = reservationService.GetHotelRooms();
+            var actualHotelRooms = ReservationService.GetHotelRooms();
             actualHotelRooms.Should().NotContain(room);
         }
         [Fact]
@@ -107,10 +136,10 @@ namespace TestDrivenHotelRemake.Tests
             string room = "Yellow";
 
             // When
-            reservationService.AddReservation(room);
+            ReservationService.AddReservation(room);
 
             // Then
-            var actualReservedRooms = reservationService.GetReservedRooms();
+            var actualReservedRooms = ReservationService.GetReservedRooms();
             actualReservedRooms.Should().NotContain(room);
         }
         [Fact]
@@ -120,15 +149,13 @@ namespace TestDrivenHotelRemake.Tests
             string room = "Room101";
 
             // When
-            reservationService.AddReservation(room);
-            reservationService.AddReservation(room);
+            ReservationService.AddReservation(room);
+            ReservationService.AddReservation(room);
 
             // Then
-            var actualReservedRooms = reservationService.GetReservedRooms();
-            actualReservedRooms.Should().ContainSingle(room);
+            var actualReservedRooms = ReservationService.GetReservedRooms();
+            actualReservedRooms.Should().ContainEquivalentOf(room);
         }
-
-
 
 
         // Cancel Reservation tests.
@@ -138,13 +165,13 @@ namespace TestDrivenHotelRemake.Tests
         {
             // Given
             string room = "Room101";
-            reservationService.AddReservation(room);
+            ReservationService.AddReservation(room);
 
             // When
-            reservationService.CancelReservation(room);
+            ReservationService.CancelReservation(room);
 
             // Then
-            reservationService.GetReservedRooms().Should().NotContain(room);
+            ReservationService.GetReservedRooms().Should().NotContain(room);
         }
 
         [Fact]
@@ -152,13 +179,13 @@ namespace TestDrivenHotelRemake.Tests
         {
             // Given
             string room = "Room101";
-            reservationService.AddReservation(room);
+            ReservationService.AddReservation(room);
 
             // When
-            reservationService.CancelReservation(room);
+            ReservationService.CancelReservation(room);
 
             // Then
-            reservationService.GetHotelRooms().Should().Contain(room);
+            ReservationService.GetHotelRooms().Should().Contain(room);
         }
 
         [Fact]
@@ -168,26 +195,27 @@ namespace TestDrivenHotelRemake.Tests
             string room = "Room101";
 
             // When
-            reservationService.CancelReservation(room);
+            ReservationService.CancelReservation(room);
 
             // Then
-            reservationService.GetReservedRooms().Should().NotContain(room);
+            ReservationService.GetReservedRooms().Should().NotContain(room);
         }
         [Fact]
-        public void CancelReservation_WhenHotelRoomsIsEmpty_ShouldNotModifyLists()
+        public void CancelReservation_WhenReservedRoomsIsEmpty_ShouldNotModifyLists()
         {
             // Given
             string room = "Room101";
 
             // When
-            reservationService.CancelReservation(room);
+            ReservationService.CancelReservation(room);
 
             // Then
-            var actualReservedRooms = reservationService.GetReservedRooms();
-            var actualHotelRooms = reservationService.GetHotelRooms();
+            var actualReservedRooms = ReservationService.GetReservedRooms();
+            var actualHotelRooms = ReservationService.GetHotelRooms();
             actualReservedRooms.Should().BeEmpty();
             actualHotelRooms.Should().BeEquivalentTo(new[] { "Room101", "Room102", "Room103" });
         }
+        
 
 
 

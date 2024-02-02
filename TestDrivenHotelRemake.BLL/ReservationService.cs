@@ -6,43 +6,38 @@ using System.Threading.Tasks;
 
 namespace TestDrivenHotelRemake.BLL
 {
-    public class ReservationService
+    public static class ReservationService
     {
         public static List<string> reservedRooms { get; set; } = new List<string>();
-        public static List<string> hotelRooms { get; set; } = new List<string>();
-      
-        public ReservationService()
-        {
-            if(hotelRooms.Count == 0)
-            {
-                hotelRooms.AddRange(new[] { "Room101", "Room102", "Room103" });
-            }
-            
-        }
+        public static List<string> hotelRooms { get; set; } = new List<string>() { "Room101", "Room102", "Room103" };
+ 
 
-        public void AddReservation(string room)
+        public static void AddReservation(string room)
         {
-            if (hotelRooms.Contains(room))
+            if (hotelRooms.Contains(room) && !reservedRooms.Contains(room))
             {
                 hotelRooms.Remove(room);
                 reservedRooms.Add(room);
             }
+          
         }
 
-        public void CancelReservation(string room)
+        public static void CancelReservation(string room)
         {
-            if (reservedRooms.Contains(room))
+            if (reservedRooms.Contains(room) && !hotelRooms.Contains(room))
             {
                 reservedRooms.Remove(room);
                 hotelRooms.Add(room);
             }
+
         }
-        public List<string> GetReservedRooms()
+
+        public static List<string> GetReservedRooms()
         {
             return reservedRooms;
         }
 
-        public List<string> GetHotelRooms()
+        public static List<string> GetHotelRooms()
         {
             return hotelRooms;
         }
