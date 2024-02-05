@@ -14,10 +14,20 @@ namespace TestDrivenHotelRemake.Pages
             AllRooms = ReservationService.GetHotelRooms();
             ReservedRooms = ReservationService.GetReservedRooms();
         }
-        public IActionResult OnPostBookRoom(int RoomNumber, int NumberOfBeds, int RoomPrice)
+        public IActionResult OnPostBookRoom(int RoomNumber, int NumberOfBeds, int RoomPrice, DateTime startDate, DateTime endDate)
         {
             var room = new HotelRoom(RoomNumber, NumberOfBeds, RoomPrice);
-            ReservationService.AddReservation(room);
+            if (ReservationService.IsRoomAvailable(room, startDate, endDate))
+            {
+                ReservationService.AddReservation(room, startDate, endDate);
+                return RedirectToPage();
+            }
+            else
+            {
+                return RedirectToPage();
+            }
+            
+
             return RedirectToPage();
         }
         public IActionResult OnPostCancelRoom(int RoomNumber, int NumberOfBeds, int RoomPrice)

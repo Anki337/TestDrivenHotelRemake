@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 using TestDrivenHotelRemake.BLL;
+using Xunit.Sdk;
 
 namespace TestDrivenHotelRemake.Tests
 {
@@ -52,11 +53,12 @@ namespace TestDrivenHotelRemake.Tests
             var room1 = new HotelRoom(101, 2, 300);
             var room2 = new HotelRoom(102, 3, 400);
             var room3 = new HotelRoom(103, 4, 500);
-
+            var startDate = new DateTime(2024, 1, 1);
+            var endDate = new DateTime(2024, 1, 5);
             // When
-            ReservationService.AddReservation(room1);
-            ReservationService.AddReservation(room2);
-            ReservationService.AddReservation(room3);
+            ReservationService.AddReservation(room1, startDate, endDate);
+            ReservationService.AddReservation(room2, startDate, endDate);
+            ReservationService.AddReservation(room3, startDate, endDate);
 
             // Then
             var actualHotelRooms = ReservationService.GetHotelRooms();
@@ -72,10 +74,16 @@ namespace TestDrivenHotelRemake.Tests
         {
             // Given
             var room = new HotelRoom(101, 2, 300);
+            var startDate = new DateTime(2024, 1, 1);
+            var endDate = new DateTime(2024, 1, 5);
+
             // When
-            ReservationService.AddReservation(room);
+            ReservationService.AddReservation(room, startDate, endDate);
             // Then
-            ReservationService.GetReservedRooms().Should().Contain(room);
+            var actualReservation = ReservationService.GetReservedRooms().FirstOrDefault();
+            actualReservation.Should().NotBeNull();
+            actualReservation.StartDate.Should().Be(startDate);
+            actualReservation.EndDate.Should().Be(endDate);
         }
 
         [Fact]
@@ -83,9 +91,11 @@ namespace TestDrivenHotelRemake.Tests
         {
             // Given
             var room = new HotelRoom(101, 2, 300);
+            var startDate = new DateTime(2024, 1, 1);
+            var endDate = new DateTime(2024, 1, 5);
 
             // When
-            ReservationService.AddReservation(room);
+            ReservationService.AddReservation(room, startDate, endDate);
 
             // Then
             var actualHotelRooms = ReservationService.GetHotelRooms();
@@ -97,9 +107,11 @@ namespace TestDrivenHotelRemake.Tests
         {
             // Given
             var room = new HotelRoom(101, 2, 300);
+            var startDate = new DateTime(2024, 1, 1);
+            var endDate = new DateTime(2024, 1, 5);
 
             // When
-            ReservationService.AddReservation(room);
+            ReservationService.AddReservation(room, startDate, endDate);
 
             // Then
             var actualReservedRooms = ReservationService.GetReservedRooms();
@@ -118,9 +130,11 @@ namespace TestDrivenHotelRemake.Tests
         {
             // Given
             var room = new HotelRoom(9339, 1231232, 232222200);
-            
+            var startDate = new DateTime(2024, 1, 1);
+            var endDate = new DateTime(2024, 1, 5);
+
             //When
-            ReservationService.AddReservation(room);
+            ReservationService.AddReservation(room, startDate, endDate);
             // Then
             ReservationService.GetReservedRooms().Should().NotContain(room);
         }
@@ -130,9 +144,11 @@ namespace TestDrivenHotelRemake.Tests
         {
             // Given
             var room = new HotelRoom(9339, 1231232, 232222200);
+            var startDate = new DateTime(2024, 1, 1);
+            var endDate = new DateTime(2024, 1, 5);
 
             // When
-            ReservationService.AddReservation(room);
+            ReservationService.AddReservation(room, startDate, endDate);
 
             // Then
             var actualHotelRooms = ReservationService.GetHotelRooms();
@@ -146,10 +162,12 @@ namespace TestDrivenHotelRemake.Tests
             // Given
             var room = new HotelRoom(101, 2, 300);
             var room2 = new HotelRoom(101, 2, 300);
+            var startDate = new DateTime(2024, 1, 1);
+            var endDate = new DateTime(2024, 1, 5);
 
             // When
-            ReservationService.AddReservation(room);
-            ReservationService.AddReservation(room2);
+            ReservationService.AddReservation(room, startDate, endDate);
+            ReservationService.AddReservation(room2, startDate, endDate);
 
             // Then
             var actualReservedRooms = ReservationService.GetReservedRooms();
@@ -164,7 +182,9 @@ namespace TestDrivenHotelRemake.Tests
         {
             // Given
             var room = new HotelRoom(101, 2, 300);
-            ReservationService.AddReservation(room);
+            var startDate = new DateTime(2024, 1, 1);
+            var endDate = new DateTime(2024, 1, 5);
+            ReservationService.AddReservation(room, startDate, endDate);
 
             // When
             ReservationService.CancelReservation(room);
@@ -178,7 +198,9 @@ namespace TestDrivenHotelRemake.Tests
         {
             // Given
             var room = new HotelRoom(101, 2, 300);
-            ReservationService.AddReservation(room);
+            var startDate = new DateTime(2024, 1, 1);
+            var endDate = new DateTime(2024, 1, 5);
+            ReservationService.AddReservation(room, startDate, endDate);
 
             // When
             ReservationService.CancelReservation(room);

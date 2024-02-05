@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xunit.Sdk;
 
 namespace TestDrivenHotelRemake.BLL
 {
@@ -16,12 +17,26 @@ namespace TestDrivenHotelRemake.BLL
             new HotelRoom(103, 4, 500)
         };
         
+        public static bool IsRoomAvailable(HotelRoom room, DateTime startDate, DateTime endDate)
+        {
+            string errorMessage = null;
 
-        public static void AddReservation(HotelRoom room)
+            if (reservedRooms.Contains(room))
+            {
+                errorMessage = "Room is already reserved";
+                return false;
+            }
+            return true;
+
+        }
+
+
+        public static void AddReservation(HotelRoom room, DateTime startDate, DateTime endDate)
         {
             if (hotelRooms.Contains(room) && !reservedRooms.Contains(room))
             {
                 hotelRooms.Remove(room);
+                room.ReserveRoom(startDate, endDate);
                 reservedRooms.Add(room);
             }
           

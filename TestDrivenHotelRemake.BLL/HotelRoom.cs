@@ -11,7 +11,10 @@ namespace TestDrivenHotelRemake.BLL
         public readonly int RoomNumber;
         public readonly int NumberOfBeds;
         public readonly int RoomPrice;
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
         
+
 
 
         public HotelRoom(int roomNumber, int numberOfBeds, int roomPrice)
@@ -21,9 +24,10 @@ namespace TestDrivenHotelRemake.BLL
             RoomPrice = roomPrice;
             
         }
-        public HotelRoom()
+        public void ReserveRoom(DateTime startDate, DateTime endDate)
         {
-
+            StartDate = startDate;
+            EndDate = endDate;
         }
         // Override Equals and GetHashCode to compare objects by value instead of reference.
         public override bool Equals(object obj)
