@@ -432,7 +432,7 @@
 }
 
 .border-top {
-  border-top: 1px solid #dee2e6 !important;
+    border-top: 1px solid #692525 !important;
 }
 
 .border-top-0 {
@@ -440,7 +440,7 @@
 }
 
 .border-end {
-  border-right: 1px solid #dee2e6 !important;
+    border-right: 1px solid #692525 !important;
 }
 
 .border-end-0 {
@@ -448,7 +448,7 @@
 }
 
 .border-bottom {
-  border-bottom: 1px solid #dee2e6 !important;
+    border-bottom: 1px solid #692525 !important;
 }
 
 .border-bottom-0 {
@@ -456,7 +456,7 @@
 }
 
 .border-start {
-  border-left: 1px solid #dee2e6 !important;
+    border-left: 1px solid #692525 !important;
 }
 
 .border-start-0 {
@@ -464,7 +464,7 @@
 }
 
 .border-primary {
-  border-color: #0d6efd !important;
+    border-color: #692525 !important;
 }
 
 .border-secondary {

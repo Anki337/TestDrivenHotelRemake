@@ -1,8 +1,10 @@
 ﻿using FluentAssertions;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Channels;
@@ -16,45 +18,43 @@ namespace TestDrivenHotelRemake.Tests
     {
 
 
-        // Get Hotel Rooms, Get Reserved Rooms tests.
-        //[Fact]  // This test will fail if all tests are run at once as it is tested at the end and thus not valid. Re-run alone to see the result.
-        //public void GetHotelRooms_ShouldReturnListOfHotelRooms()
-        //{
-        //    // Given
-        //    var expectedHotelRooms = new List<string> { "Room101", "Room102", "Room103" };
+        [Fact]
+        public void GetHotelRooms_ShouldReturnListOfHotelRooms()
+        {
+            // Given
+           
+            var room1 = new HotelRoom(101, 2, 300);
+            var room2 = new HotelRoom(102, 3, 400);
+            var room3 = new HotelRoom(103, 4, 500);
 
-        //    // When
-        //    var actualHotelRooms = ReservationService.GetHotelRooms();
+            // When
+            var actualHotelRooms = ReservationService.InitializeHotelRooms();
 
-        //    // Then
-        //    actualHotelRooms.Should().BeEquivalentTo(expectedHotelRooms);
-        //}
+            // Then
+            actualHotelRooms.Should().BeEquivalentTo(new List<HotelRoom> { room1, room2, room3 });
+        }
+        [Fact]
+        public void GetReservedRooms_ShouldReturnEmptyListAtDeploy()
+        {
+            // Given
+            // Reserved rooms are empty at deploy.
+            // When
+            var actualReservedRooms = ReservationService.InitializeReservedRooms();
 
-        //[Fact] // This test will fail if all tests are run at once as it is tested at the end and thus not valid. Re-run alone to see the result.
-        //public void GetReservedRooms_ShouldReturnEmptyListInitially()
-        //{
-        //    // Given
-        //    var expectedReservedRooms = new List<string>();
-
-        //    // When
-
-        //    var actualReservedRooms = ReservationService.GetReservedRooms();
-
-        //    // Then
-        //    actualReservedRooms.Should().BeEquivalentTo(expectedReservedRooms);
-        //}
-
+            // Then
+            actualReservedRooms.Should().BeEmpty();
+        }   
 
         [Fact] 
         public void GetHotelRooms_ShouldReturnEmptyListAfterAllReservations()
         {
-            // Given
             // Given
             var room1 = new HotelRoom(101, 2, 300);
             var room2 = new HotelRoom(102, 3, 400);
             var room3 = new HotelRoom(103, 4, 500);
             var startDate = new DateTime(2024, 1, 1);
             var endDate = new DateTime(2024, 1, 5);
+
             // When
             ReservationService.AddReservation(room1, startDate, endDate);
             ReservationService.AddReservation(room2, startDate, endDate);
@@ -79,6 +79,7 @@ namespace TestDrivenHotelRemake.Tests
 
             // When
             ReservationService.AddReservation(room, startDate, endDate);
+
             // Then
             var actualReservation = ReservationService.GetReservedRooms().FirstOrDefault();
             actualReservation.Should().NotBeNull();

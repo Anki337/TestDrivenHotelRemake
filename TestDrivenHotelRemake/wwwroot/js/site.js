@@ -4,6 +4,7 @@
 // Write your JavaScript code.
 
 document.addEventListener('DOMContentLoaded', function () {
+    console.log('JavaScript loaded!');
     // Use data-date-range attribute to identify forms with date range
     var formsWithDateRange = document.querySelectorAll('[data-date-range]');
 

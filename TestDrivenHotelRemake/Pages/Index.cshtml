@@ -17,8 +17,8 @@
             <h1>Available Rooms</h1>
             @foreach (var room in Model.AllRooms)
             {
-                <div class="card mb-3">
-                    
+                <div class="card-img-top mb-3 room-@room.RoomNumber">
+                    <img src="~/Room-Images/@(room.RoomNumber).jpg" alt="Room Image Broken :(" />
                     <div class="card-body">
                         <h4 class="card-title">Room Number: @room.RoomNumber</h4>
                         <p class="card-text">Number of Beds: @room.NumberOfBeds</p>
@@ -37,7 +37,8 @@
                             <label for="endDate">End Date:</label>
                             <input type="date" id="endDate" name="EndDate" class="form-control" required />
                         </div>
-                        <input type="submit" class="btn btn-primary" value="Book Room!" />
+
+                        <input type="submit" id="Bookbtn" class="btn btn-primary" value="Book Room!" style="margin-top: 10px;" />
                     </form>
                 </div>
             }
@@ -46,11 +47,13 @@
             <h1>Reserved Rooms</h1>
             @foreach (var reservedRoom in Model.ReservedRooms)
             {
-                <div class="card mb-3">
+                <div class="card mb-3 card-img-top room-@reservedRoom.RoomNumber">
+                    <img src="~/Room-Images/@(reservedRoom.RoomNumber).jpg" alt="Room Image" />
                     <div class="card-body">
                         <h4 class="card-title">Room Number: @reservedRoom.RoomNumber</h4>
                         <p class="card-text">Number of Beds: @reservedRoom.NumberOfBeds</p>
                         <p class="card-text">Room Price: @reservedRoom.RoomPrice</p>
+                        <p class="card-text">Booked: @reservedRoom.StartDate.ToShortDateString() - @reservedRoom.EndDate.ToShortDateString()</p>
                     </div>
                     <form method="post" asp-page-handler="CancelRoom" class="card-footer">
                         <input type="hidden" name="RoomNumber" value="@reservedRoom.RoomNumber" />

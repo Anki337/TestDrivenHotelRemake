@@ -28,6 +28,7 @@ namespace TestDrivenHotelRemake.BLL
         {
             StartDate = startDate;
             EndDate = endDate;
+
         }
         // Override Equals and GetHashCode to compare objects by value instead of reference.
         public override bool Equals(object obj)

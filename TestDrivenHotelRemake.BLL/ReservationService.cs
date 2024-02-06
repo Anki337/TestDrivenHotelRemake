@@ -9,14 +9,25 @@ namespace TestDrivenHotelRemake.BLL
 {
     public static class ReservationService
     {
-        public static List<HotelRoom> reservedRooms { get; set; } = new List<HotelRoom>();
-        public static List<HotelRoom> hotelRooms { get; set; } = new List<HotelRoom>()
-        {
-            new HotelRoom(101, 2, 300),
-            new HotelRoom(102, 3, 400),
-            new HotelRoom(103, 4, 500)
-        };
+        public static List<HotelRoom> reservedRooms { get; set; } = InitializeReservedRooms();
+        public static List<HotelRoom> hotelRooms { get; set; } = InitializeHotelRooms();
+   
         
+        public static List<HotelRoom> InitializeHotelRooms() 
+        {
+           return new List<HotelRoom>()
+           {
+               new HotelRoom(101, 2, 300),
+               new HotelRoom(102, 3, 400),
+               new HotelRoom(103, 4, 500)
+           };
+        }
+        public static List<HotelRoom> InitializeReservedRooms()
+        {
+            return new List<HotelRoom>();
+        }
+
+
         public static bool IsRoomAvailable(HotelRoom room, DateTime startDate, DateTime endDate)
         {
             string errorMessage = null;

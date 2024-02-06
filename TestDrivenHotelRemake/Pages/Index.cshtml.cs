@@ -28,9 +28,8 @@ namespace TestDrivenHotelRemake.Pages
             }
             
 
-            return RedirectToPage();
         }
-        public IActionResult OnPostCancelRoom(int RoomNumber, int NumberOfBeds, int RoomPrice)
+        public IActionResult OnPostCancelRoom(int RoomNumber, int NumberOfBeds, int RoomPrice, DateTime startDate, DateTime endDate)
         {
             var room = new HotelRoom(RoomNumber, NumberOfBeds, RoomPrice);
             ReservationService.CancelReservation(room);

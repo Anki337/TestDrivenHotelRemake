@@ -24,4 +24,15 @@
     <ProjectReference Include="..\TestDrivenHotelRemake.BLL\TestDrivenHotelRemake.BLL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Background-Images\" />
+    <Folder Include="wwwroot\Room-Images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Background-Images\Castle_Dracula_2560x1600.png" />
+    <None Include="wwwroot\Room-Images\101.jpg" />
+    <None Include="wwwroot\Room-Images\102.jpg" />
+  </ItemGroup>
+
 </Project>
