@@ -18,7 +18,7 @@
             @foreach (var room in Model.AllRooms)
             {
                 <div class="card-img-top mb-3 room-@room.RoomNumber">
-                    <img src="~/Room-Images/@(room.RoomNumber).jpg" alt="Room Image Broken :(" />
+                    <img src="~/Room-Images/@(room.RoomNumber).jpg" alt="Room Image Broken :(" style="margin-top: 15px;"/>
                     <div class="card-body">
                         <h4 class="card-title">Room Number: @room.RoomNumber</h4>
                         <p class="card-text">Number of Beds: @room.NumberOfBeds</p>
@@ -38,7 +38,7 @@
                             <input type="date" id="endDate" name="EndDate" class="form-control" required />
                         </div>
 
-                        <input type="submit" id="Bookbtn" class="btn btn-primary" value="Book Room!" style="margin-top: 10px;" />
+                        <input type="submit" id="Bookbtn" class="btn btn-primary" value="Book Room!" style="margin-top: 15px;" />
                     </form>
                 </div>
             }
@@ -48,7 +48,7 @@
             @foreach (var reservedRoom in Model.ReservedRooms)
             {
                 <div class="card mb-3 card-img-top room-@reservedRoom.RoomNumber">
-                    <img src="~/Room-Images/@(reservedRoom.RoomNumber).jpg" alt="Room Image" />
+                    <img src="~/Room-Images/@(reservedRoom.RoomNumber).jpg" alt="Room Image  Broken :(" style="margin-top: 10px;" />
                     <div class="card-body">
                         <h4 class="card-title">Room Number: @reservedRoom.RoomNumber</h4>
                         <p class="card-text">Number of Beds: @reservedRoom.NumberOfBeds</p>
